@@ -10,6 +10,9 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      
+    - name: debug
+      run: pwd && ls -la && find . -name package.json
 
     - name: Setup Node.js
       uses: actions/setup-node@v4
