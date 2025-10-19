@@ -21,15 +21,15 @@ jobs:
 
     - name: Install dependencies
       run: npm install
-      working-directory: ./oui-core/htdoc  # Correct path to frontend package.json
+      working-directory: ./oui-ui-core/htdoc  # Correct path to frontend package.json
 
     - name: Build static site
       run: npm run build  # Vite build command outputs to dist/
-      working-directory: ./oui-core/htdoc
+      working-directory: ./oui-ui-core/htdoc
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
         name: oui-static-build
-        path: oui-core/htdoc/dist/  # Adjust if output dir differs (check vite.config.js)
+        path: oui-ui-core/htdoc/dist/  # Adjust if output dir differs (check vite.config.js)
         retention-days: 30
