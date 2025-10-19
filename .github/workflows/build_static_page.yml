@@ -1,7 +1,7 @@
 name: Build OUI Static Site
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Manual trigger button in GitHub UI
 
 jobs:
   build:
@@ -9,21 +9,24 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # Updated to latest version
 
     - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
-        node-version: '18'
+        node-version: '20'  # Use a recent LTS; OUI likely compatible
 
     - name: Install dependencies
       run: npm install
+      working-directory: ./oui-ui  # Key fix: Target the UI folder
 
-    - name: Build the site
-      run: npm run build
+    - name: Build static site
+      run: npm run build  # Assumes standard Vite build script in package.json
+      working-directory: ./oui-ui
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
         name: oui-static-site
-        path: dist/
+        path: oui-ui/dist/  # Path to built static files
+        #retention-days: 30  # Keep artifacts for 30 days
